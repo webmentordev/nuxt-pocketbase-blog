@@ -16,6 +16,10 @@
     import { ref } from 'vue';
     import PocketBase from 'pocketbase';
 
+    definePageMeta({
+        middleware: ["auth"]
+    });
+
     const name = ref("");
     const body = ref("");
 
