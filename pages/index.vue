@@ -1,6 +1,6 @@
 <template>
     <div class="max-w-3xl m-auto px-4 py-6">
-        <h1 class="font-bold mt-3 text-3xl mb-3">Welcome to HomePage!😁</h1>
+        <h1 class="font-bold mt-3 text-3xl mb-6">Welcome to HomePage!😁</h1>
         <div class="bg-gray-100 p-3 rounded-md mb-6">You are logged in!</div>
         <form @submit.prevent="postHandler">
             <input type="text" v-model="name" placeholder="Post Title"

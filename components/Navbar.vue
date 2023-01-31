@@ -3,6 +3,7 @@
         <div class="flex items-center justify-between py-4 max-w-3xl m-auto text-white font-semibold">
             <NuxtLink to="/">Home</NuxtLink>
             <ul class="flex items-center">
+                <NuxtLink class="mx-4" to="/blogs">Blogs</NuxtLink>
                 <NuxtLink class="mx-4" to="/login">Login</NuxtLink>
                 <NuxtLink class="mx-4" to="/signup">Signup</NuxtLink>
                 <form @submit.prevent="handleLogout">
