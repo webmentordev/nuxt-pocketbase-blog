@@ -44,7 +44,6 @@
                 password: password.value,
                 passwordConfirm: confirm_password.value,
             });
-            console.log(record)
         }else{
             console.log([
                 username.value,

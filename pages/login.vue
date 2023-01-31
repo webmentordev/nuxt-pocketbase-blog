@@ -30,7 +30,7 @@
     async function loginHandler(){
         //const authData = await pb.admins.authWithPassword(email.value, password.value); // Admin account login
         try{
-            const authData = await pb.collection('users').authWithPassword(email.value, password.value);
+            await pb.collection('users').authWithPassword(email.value, password.value);
             navigateTo('/')
         }catch(e){
             failedMessage.value = "Email or Password is wrong!";

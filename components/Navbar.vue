@@ -16,8 +16,9 @@
 
 <script setup>
     import PocketBase from 'pocketbase';
-    const config = useRuntimeConfig()
+    const config = useRuntimeConfig();
     const pb = new PocketBase(config.public.localApiServer);
+
     function handleLogout(){
         pb.authStore.clear();
         navigateTo('/login')
