@@ -29,5 +29,8 @@
             body: body.value,
             slug: name.value.replace(/\s+/g, '-').toLowerCase()
         });
+        setTimeout(() => {
+                failedMessage.value = ""
+        }, 4000)
     }
 </script>
