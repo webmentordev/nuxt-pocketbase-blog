@@ -24,7 +24,7 @@
     const pb = new PocketBase(config.public.localApiServer);
 
     async function postHandler(){
-        const authData = await pb.collection('posts').create({
+        await pb.collection('posts').create({
             name: name.value,
             body: body.value,
             slug: name.value.replace(/\s+/g, '-').toLowerCase()

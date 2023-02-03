@@ -16,9 +16,12 @@
     import { ref } from 'vue';
     import PocketBase from 'pocketbase';
 
-    definePageMeta({
-        middleware: ["guest"]
-    })
+    const router = useRouter();
+    onMounted(() => {
+        if(pb.authStore.model !== null){
+            router.push('/')
+        }
+    });
 
     const config = useRuntimeConfig()
     const pb = new PocketBase(config.public.localApiServer);
@@ -26,11 +29,12 @@
     const email = ref("");
     const password = ref("");
     const failedMessage = ref("");
-
+    const state = loginStateManager();
     async function loginHandler(){
         //const authData = await pb.admins.authWithPassword(email.value, password.value); // Admin account login
         try{
             await pb.collection('users').authWithPassword(email.value, password.value);
+            state.value = pb.authStore.model;
             navigateTo('/')
         }catch(e){
             failedMessage.value = "Email or Password is wrong!";
