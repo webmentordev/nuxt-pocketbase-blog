@@ -6,7 +6,7 @@
             <div class="flex items-center">
                 <NuxtLink :to="`/blogs/${record.slug}`" class="py-2 px-6 mr-3 h-fit rounded-md text-white bg-blue-600 font-semibold inline-block">Read</NuxtLink>
                 <ul class="flex flex-wrap">
-                    <li v-for="tag in record.expand['tags(post_id)']" class="mx-2 p-3 rounded-full cursor-pointer bg-white">{{ tag.tag }}</li>
+                    <li v-for="tag in record.expand['tags(post_id)']" class="mx-2 p-3 rounded-full cursor-pointer bg-white"><NuxtLink :to="`/blogs/tag/${tag.tag}`">#{{ tag.tag }}</NuxtLink></li>
                 </ul>
             </div>
             

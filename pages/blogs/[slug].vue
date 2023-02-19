@@ -24,7 +24,6 @@
 
     if(blogData.length){
         record.value = blogData[0];
-        console.log(record.value);
     }else{
         throw createError({ statusCode: 404, statusMessage: "Blog Not Found!", fatal: true })
     }
