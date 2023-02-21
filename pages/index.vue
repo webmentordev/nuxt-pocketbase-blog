@@ -13,9 +13,11 @@
             <input type="text" @keydown.enter.prevent="handleKeyDown" v-model="add_tag" placeholder="Tags (hit enter)" class="p-3 border border-gray-200 bg-gray-100 mb-2 rounded-md w-full">
             <p class="py-2 text-red-600" v-if="errors.tags">{{ errors.tags }}</p>
             
+            
             <ul class="flex mb-3 flex-wrap" v-if="tags.length">
                 <li v-for="(item, index) in tags" :key="index" @click.prevent="removeHandler(index)" class="mx-2 mb-2 p-3 rounded-full cursor-pointer bg-gray-100">#{{ item }}</li>
             </ul>
+            <input type="file" @change="onImageChange" id="image" class="p-3 border border-gray-200 bg-gray-100 mb-1 rounded-md w-full" accept="image/*">
             <button type="submit" class="bg-blue-600 text-white py-3 font-semibold w-fit px-6 rounded-md">{{ isPosting ? 'Posting..' : 'Post'}}</button>
         </form>
     </div>
@@ -31,6 +33,7 @@
 
     const name = ref("");
     const body = ref("");
+    const image = ref(null);
     const isPosting = ref(false);
     const message = ref("");
     const add_tag = ref("");
@@ -44,6 +47,12 @@
 
     const config = useRuntimeConfig();
     const pb = new PocketBase(config.public.localApiServer);
+
+    const formData = new FormData();
+    
+    function onImageChange(e){
+      image.value = e.target.files[0];
+    }
 
     async function postHandler(){
         isPosting.value = true;
@@ -61,11 +70,13 @@
         }
 
         if(errorCount.value == 0){
-            await pb.collection('posts').create({
-                name: name.value,
-                body: body.value,
-                slug: name.value.replace(/\s+/g, '-').toLowerCase()
-            }).then(async (response) => {
+            formData.append("name", name.value);
+            formData.append("body", body.value);
+            formData.append("slug", name.value.replace(/\s+/g, '-').toLowerCase());
+            if(image.value != null){
+                formData.append("image", image.value, image.value.name);
+            }
+            await pb.collection('posts').create(formData).then(async (response) => {
                 for(let i = 0; i < tags.value.length; i++){
                     const data = {
                         "post_id": response.id,
